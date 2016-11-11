@@ -1,0 +1,64 @@
+{
+    "version": "0.1.0",
+    "command": "sh",
+    "args": ["-c"],
+    "isShellCommand": true,
+    "showOutput": "never",
+    "suppressTaskName": true,
+    "cwd": "${workspaceRoot}",
+    "tasks": [
+        {
+            "taskName": "Run tests in file",
+            "isTestCommand": true,
+			"isBuildCommand": false,
+            "args": ["${workspaceRoot}/node_modules/.bin/ava -v -s ${relativeFile}"],
+            "problemMatcher": {
+				"owner": "javascript",
+                "fileLocation": ["relative", "${workspaceRoot}/tests"],
+                "pattern": [
+                    {
+                        "regexp": "\\d+\\.\\s+(.*)$",
+						"code": 1
+                    },
+                    {
+                        "regexp": "\\.*(AssertionError|TypeError):\\s+(.*)$",
+						"message": 2
+                    },
+                    {
+                        "regexp": "[^(]*\\((.+\\.js):(\\d+):(\\d+)\\).*$",
+						"file": 1,
+						"line": 2,
+						"column": 3
+                    }
+                ]
+            }
+        },
+        {
+            "taskName": "Run all tests",
+            "isTestCommand": false,
+			"isBuildCommand": true,
+            "args": ["${workspaceRoot}/node_modules/.bin/ava -v -s tests/**/*.js"],
+            "problemMatcher": {
+				"owner": "javascript",
+                "fileLocation": ["relative", "${workspaceRoot}/tests"],
+                "pattern": [
+                    {
+                        "regexp": "\\d+\\.\\s+(.*)$",
+						"code": 1
+                    },
+                    {
+                        "regexp": "\\.*(AssertionError|TypeError):\\s+(.*)$",
+						"message": 2
+                    },
+                    {
+                        "regexp": "[^(]*\\((.+\\.js):(\\d+):(\\d+)\\).*$",
+						"file": 1,
+						"line": 2,
+						"column": 3
+                    }
+                ]
+            }
+        }
+
+    ]
+}

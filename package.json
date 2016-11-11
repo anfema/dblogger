@@ -1,0 +1,45 @@
+{
+  "name": "dblogger",
+  "version": "0.1.0",
+  "description": "Database based logging library with tagging and JSON based API",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava -t",
+    "lint": "eslint src/ --quiet"
+  },
+  "author": "Johannes Schriewer <@dunkelstern>",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-eslint": "^7.0.0",
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^2.0.1"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.1",
+    "jsonapi-serializer": "^3.4.1",
+    "koa": "^2.0.0-alpha.7",
+    "koa-basic-auth": "^1.1.2",
+    "koa-compress": "^2.0.0",
+    "koa-cors": "0.0.16",
+    "koa-router": "^7.0.1",
+    "sequelize": "^3.24.3",
+    "sqlite3": "^3.1.6"
+  },
+  "ava": {
+    "source": [
+      "src/**/*.js",
+      "index.js"
+    ],
+    "files": [
+      "tests/**/*.js"
+    ],
+    "failFast": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anfema/dblogger.git"
+  }
+}
