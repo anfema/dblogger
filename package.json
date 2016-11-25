@@ -7,7 +7,17 @@
     "test": "ava -t",
     "lint": "eslint src/ --quiet"
   },
-  "author": "Johannes Schriewer <@dunkelstern>",
+  "author": {
+	  "name": "Johannes Schriewer",
+	  "email": "j.schriewer@anfe.ma"
+  },
+  "keywords": [
+	  "logging",
+	  "db",
+	  "database",
+	  "log",
+	  "api"
+  ],
   "license": "BSD",
   "devDependencies": {
     "ava": "^0.16.0",
@@ -40,6 +50,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anfema/dblogger.git"
+    "url": "https://github.com/anfema/dblogger.git"
   }
 }
