@@ -86,7 +86,6 @@ function createLogger(name, options) {
 			break;
 	}
 
-
 	const logger = bunyan.createLogger({
 		name,
 		level: options.level,
@@ -104,7 +103,6 @@ function createLogger(name, options) {
 		return logger.child({ tags });
 	};
 
-
 	logger.onEntry = () => {};
 	logger.tablePrefix = options.tablePrefix || 'logger';
 
@@ -116,7 +114,7 @@ function createLogger(name, options) {
 				const wr = stream.write;
 
 				// monkey patch stream
-				stream.write = function(chunk, env, callback) {
+				stream.write = function (chunk, env, callback) {
 					const cb = callback || (() => {});
 					const modifiedArguments = [chunk, env];
 

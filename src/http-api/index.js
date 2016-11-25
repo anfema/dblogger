@@ -155,7 +155,6 @@ function createServer(options) {
 	router.get('levels',	'/levels/:id',		getLevels);
 	router.get('hosts',		'/hosts/:id',		getHosts);
 
-
 	// add router to middleware
 	app.use(router.routes());
 	app.use(router.allowedMethods());

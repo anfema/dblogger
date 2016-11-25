@@ -142,7 +142,9 @@ function logList(ctx) {
 
 	// tags filter
 	if (ctx.query.tags) {
-		const tags = ctx.query.tags.split(',').map(t => `tag.id = ${t}`).join(' OR ');
+		const tags = ctx.query.tags.split(',')
+			.map(t => `tag.id = ${t}`)
+			.join(' OR ');
 
 		where.push(`(${tags})`);
 	}

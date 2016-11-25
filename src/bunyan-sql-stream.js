@@ -36,7 +36,7 @@ class LogStream extends Writable {
 									name: t,
 								},
 							})
-							.then(([tag, created]) => tag)
+							.then(([tag]) => tag)
 						)
 					)
 					// associate tags
@@ -58,7 +58,7 @@ class LogStream extends Writable {
 						},
 					})
 					// associate hostname
-					.then(([host, created]) => {
+					.then(([host]) => {
 						log.hostnameID = host.id;
 					})
 				);
@@ -76,7 +76,7 @@ class LogStream extends Writable {
 						},
 					})
 					// associate hostname
-					.then(([logger, created]) => {
+					.then(([logger]) => {
 						log.loggerID = logger.id;
 					})
 				);
@@ -95,9 +95,9 @@ class LogStream extends Writable {
 						},
 					})
 					// associate source
-					.then(([source, created]) => {
+					.then(([source]) =>
 						// find or create function
-						return this.model.Func.findOrCreate({
+						this.model.Func.findOrCreate({
 							where: {
 								name: content.src.func.toString(),
 								lineNumber: content.src.line,
@@ -108,10 +108,10 @@ class LogStream extends Writable {
 								lineNumber: content.src.line,
 								sourceID: source.id,
 							},
-						});
-					})
+						})
+					)
 					// associate function
-					.then(([func, created]) => {
+					.then(([func]) => {
 						log.functionID = func.id;
 					})
 				);

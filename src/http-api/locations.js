@@ -24,7 +24,6 @@ function singleLocation(ctx) {
 			file: obj.sourceID,
 		}).serialize('location');
 	});
-
 }
 
 function locationList(ctx) {

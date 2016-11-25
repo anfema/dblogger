@@ -9,6 +9,7 @@ function singleLevel(ctx) {
 			id,
 			name: nameFromLevel[id],
 		}).serialize('level');
+
 		return;
 	}
 

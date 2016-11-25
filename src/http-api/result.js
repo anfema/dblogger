@@ -62,7 +62,7 @@ class Result {
 
 		const Serializer = new JSONAPISerializer(objectType, config);
 
-		if (this.objects.length == 1) {
+		if (this.objects.length === 1) {
 			return Serializer.serialize(this.objects[0]);
 		}
 
@@ -110,6 +110,5 @@ class Result {
 		return { prev, next, last };
 	}
 }
-
 
 module.exports = Result;

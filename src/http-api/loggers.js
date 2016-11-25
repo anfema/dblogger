@@ -7,12 +7,12 @@ function singleLogger(ctx) {
 		let i = 1;
 
 		for (const logger of ctx.loggers) {
-			if (i === parseInt(ctx.params.id, 10))
-			loggers.push({
-				id: i,
-				name: logger,
-			});
-
+			if (i === parseInt(ctx.params.id, 10)) {
+				loggers.push({
+					id: i,
+					name: logger,
+				});
+			}
 			i += 1;
 		}
 
@@ -41,7 +41,6 @@ function singleLogger(ctx) {
 			name: obj.name,
 		}).serialize('logger');
 	});
-
 }
 
 function loggerList(ctx) {

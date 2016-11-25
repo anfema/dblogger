@@ -15,7 +15,7 @@ Just install `dblogger` with `npm install --save dblogger`
 Initialize a named logger:
 
 ~~~javascript
-const logger = require('dblogger')('default', {
+const logger = await require('dblogger')('default', {
 	connection = {
 		type: 'sqlite',
 		dbPath: '/tmp/logger.db',
@@ -26,8 +26,11 @@ const logger = require('dblogger')('default', {
 To get access to an already initialized logger just skip the options object:
 
 ~~~javascript
-const logger = require('dblogger')('default');
+const logger = await require('dblogger')('default');
 ~~~
+
+The initialization call will return a promise.
+So if you are already on ES2016 you can use `await` to make sure the logger is fully initialized when calling it, else just use a `.then` chain to access the logger.
 
 Available options in the options object:
 
@@ -52,6 +55,8 @@ The usage is basically identical to [Bunyan](https://github.com/trentm/node-buny
 #### Log something
 
 ~~~javascript
+const logger = await require('dblogger')('default');
+
 logger.trace('Message');
 logger.debug('Message');
 logger.info('Message');
@@ -142,7 +147,7 @@ function server() {
 		// Setup the page size, we set it to 10 here to
 		// see if the pagination works correctly
 		pageSize: 10,
-		// allow queries without `logger` query param (assumes all loggers log to same file)
+		// allow queries without `logger` query param (assumes all loggers log to same file / database)
 		combinedLogging: true,
 	});
 
@@ -160,7 +165,9 @@ This exact implementations is available in `tests/serve.js` so for demo purposes
 
 ### API endpoints
 
-Responses are encapsulated like this:
+The API switches it's output format based on the `Accept` header to satisfy the `JSONAPI` hipsters and the oldschoolers that want plain JSON.
+
+#### Plain JSON responses with `Accept: application/json`:
 
 **Successful response:**
 
@@ -203,6 +210,36 @@ Pagination will always send the **newest items first**, so page zero is the most
 - `message`: English error message
 - `trace`: Array of backtrace lines (only if `NODE_ENV` is not `production`)
 
+
+#### [JSONAPI](http://jsonapi.org) responses (with `Accept: application/vnd.api+json`):
+
+~~~json
+{
+  "links": {
+    "self": "<endpoint>",
+    "pagination": {
+      "first": "<endpoint>",
+      "last": null,
+      "prev": null,
+      "next": null
+    }
+  },
+  "data": [
+    {
+      "type": "<item_type>",
+      "id": "<id>",
+      "attributes": {
+        ...
+      },
+      "relationships": {
+        ...
+      }
+    }
+  ]
+}
+~~~
+
+We can not currently embed `self` links into relationships, sorry for that but the serializer just can't do it right now.
 
 #### Available loggers
 
@@ -300,7 +337,7 @@ Example:
   "results": [
     {
       "id": 1,
-      "path": "/Users/johannes/Code/001-Anfema/kidswatch-logger-lib/tests/serve.js"
+      "path": "/home/user/testproject/tests/serve.js"
     }
   ]
 }
@@ -409,6 +446,36 @@ Example:
       "id": 1,
       "name": "createLogger.then",
       "file": 1
+    }
+  ]
+}
+~~~
+
+
+#### Hostnames
+
+Endpoint: `/hosts`
+
+Response items:
+
+~~~json
+{
+  "id": <id>,
+  "name": "<hostname>",
+}
+~~~
+
+Example:
+
+~~~json
+{
+  "next": null,
+  "prev": null,
+  "count": 1,
+  "results": [
+    {
+      "id": 1,
+      "name": "localhost",
     }
   ]
 }
