@@ -18,7 +18,7 @@
 	  "log",
 	  "api"
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-eslint": "^7.0.0",
